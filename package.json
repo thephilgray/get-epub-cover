@@ -1,0 +1,27 @@
+{
+  "name": "get-epub-cover",
+  "version": "1.0.0",
+  "description": "A Node app to find and return the absolute path to the cover image of an unzipped EPUB.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "get-epub-cover": "./getEpubCover.js"
+  },
+  "keywords": [
+    "EPUB",
+    "ebook development",
+    "Node",
+    "ebook cover"
+  ],
+  "author": "Phil Gray (https://github.com/thephilgray)",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "fs-extra": "^7.0.1",
+    "minimist": "^1.2.0",
+    "terminal-image": "^0.1.2",
+    "xml-js": "^1.6.11"
+  }
+}
