@@ -17,6 +17,10 @@
   ],
   "author": "Phil Gray (https://github.com/thephilgray)",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thephilgray/get-epub-cover/issues"
+  },
+  "homepage": "https://github.com/thephilgray/get-epub-cover",
   "dependencies": {
     "chalk": "^2.4.2",
     "fs-extra": "^7.0.1",
