@@ -73,36 +73,35 @@ module.exports = (pathToEpub, cb) =>
 
     /* try to find the item with the id cover-image and get its href value */
 
-    /* TODO: refactor if/else handling to be more concise */
+    /* check the manifest for item with property 'cover-image'; fallback to checking the meta tag with name 'cover' */
 
-    /* in case the cover is specified in the package metadata and not with the manifest item properties, check the package metadata to get the package manifest item id */
+    const {
+      package: {
+        manifest,
+        metadata: { meta },
+      },
+    } = opfJs;
 
-    if (
-      opfJs.package.metadata.meta.filter(
-        item => item._attributes.name === 'cover'
-      ).length > 0
-    ) {
-      const coverId = opfJs.package.metadata.meta.filter(
-        item => item._attributes.name === 'cover'
-      )[0]._attributes.content;
+    const [manifestCoverItem] = manifest.item.filter(
+      item => item._attributes.properties === 'cover-image'
+    );
+    const [metaDataCoverReference] = meta.filter(
+      item => item._attributes.name === 'cover'
+    );
 
-      /* once we have the package manifest item id, search the package manifest for that item and get its href */
-
-      cover = opfJs.package.manifest.item.filter(
+    if (manifestCoverItem) {
+      cover = manifestCoverItem._attributes.href;
+    } else if (!manifestCoverItem && metaDataCoverReference) {
+      const coverId = metaDataCoverReference.content;
+      const [metaCoverItem] = manifest.item.filter(
         item => item._attributes.id === coverId
-      )[0]._attributes.href;
-    } else if (
-      /* if the cover is not specified in the package metadata, search the package manifest for an item containing a properties value of cover-image */
-      opfJs.package.manifest.item.filter(
-        item => item._attributes.properties === 'cover-image'
-      ).length > 0
-    ) {
-      cover = opfJs.package.manifest.item.filter(
-        item => item._attributes.properties === 'cover-image'
-      )[0]._attributes.href;
+      );
+      if (!metaCoverItem)
+        return handleError(
+          'No cover image specified in package metadata or package manifest item properties.'
+        );
+      cover = metaCoverItem._attributes.href;
     } else {
-      /* finally, if all else fails, handle the error */
-
       return handleError(
         'No cover image specified in package metadata or package manifest item properties.'
       );
