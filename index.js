@@ -91,15 +91,16 @@ module.exports = (pathToEpub, cb) =>
 
     if (manifestCoverItem) {
       cover = manifestCoverItem._attributes.href;
-    } else if (!manifestCoverItem && metaDataCoverReference) {
+    } else if (metaDataCoverReference) {
       const coverId = metaDataCoverReference.content;
       const [metaCoverItem] = manifest.item.filter(
         item => item._attributes.id === coverId
       );
-      if (!metaCoverItem)
+      if (!metaCoverItem) {
         return handleError(
           'No cover image specified in package metadata or package manifest item properties.'
         );
+      }
       cover = metaCoverItem._attributes.href;
     } else {
       return handleError(
