@@ -92,7 +92,7 @@ module.exports = (pathToEpub, cb) =>
     if (manifestCoverItem) {
       cover = manifestCoverItem._attributes.href;
     } else if (metaDataCoverReference) {
-      const coverId = metaDataCoverReference.content;
+      const coverId = metaDataCoverReference._attributes.content;
       const [metaCoverItem] = manifest.item.filter(
         item => item._attributes.id === coverId
       );
