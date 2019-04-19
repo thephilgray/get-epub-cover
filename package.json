@@ -4,7 +4,7 @@
   "description": "A Node app to find and return the absolute path to the cover image of an unzipped EPUB.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "bin": {
     "get-epub-cover": "./getEpubCover.js"
