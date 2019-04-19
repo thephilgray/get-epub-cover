@@ -1,6 +1,6 @@
 {
   "name": "get-epub-cover",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Node app to find and return the absolute path to the cover image of an unzipped EPUB.",
   "main": "index.js",
   "scripts": {
