@@ -20,8 +20,15 @@ describe('unit tests', () => {
     });
 
     /* TODO: and the manifest item also has other properties */
-    describe.skip('and the manifest item has multiple properties, including `cover-image`', () => {
-      test('should return the href to the cover image when the manifest has multiple properties including `cover-image`', () => {});
+    describe('and the manifest item has multiple properties, including `cover-image`', () => {
+      test('should return the href to the cover image when the manifest has multiple properties including `cover-image`', () => {
+        /* add an extra property to the manifest item */
+        opfJs.package.manifest.item[2]._attributes.properties =
+          'cover-image svg';
+        const expected = `images/cover.jpg`;
+        const actual = coverFromManifest(opfJs);
+        expect(actual).toEqual(expected);
+      });
     });
   });
 
